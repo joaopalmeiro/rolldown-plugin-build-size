@@ -1,0 +1,50 @@
+{
+  "name": "rolldown-plugin-build-size",
+  "version": "0.0.0",
+  "private": false,
+  "description": "Report the total build size.",
+  "keywords": [
+    "rolldown-plugin",
+    "vite-plugin"
+  ],
+  "homepage": "https://github.com/joaopalmeiro/rolldown-plugin-build-size",
+  "bugs": {
+    "url": "https://github.com/joaopalmeiro/rolldown-plugin-build-size/issues"
+  },
+  "license": "MIT",
+  "author": {
+    "name": "João Palmeiro",
+    "email": "joaopalmeiro@proton.me",
+    "url": "https://joao.town/"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/joaopalmeiro/rolldown-plugin-build-size.git"
+  },
+  "files": [
+    "dist"
+  ],
+  "type": "module",
+  "exports": {
+    ".": "./dist/index.mjs",
+    "./package.json": "./package.json"
+  },
+  "scripts": {
+    "build": "tsdown",
+    "dev": "tsdown --watch",
+    "format": "oxfmt",
+    "lint": "run-s lint:types lint:code",
+    "lint:code": "oxlint --fix",
+    "lint:types": "tsc --noEmit"
+  },
+  "devDependencies": {
+    "@arethetypeswrong/core": "0.18.5",
+    "@types/node": "24.13.5",
+    "npm-run-all2": "8.0.4",
+    "oxfmt": "0.68.0",
+    "oxlint": "1.79.0",
+    "publint": "0.3.24",
+    "tsdown": "0.22.5",
+    "typescript": "7.0.2"
+  }
+}
