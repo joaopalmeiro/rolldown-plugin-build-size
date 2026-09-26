@@ -13,6 +13,7 @@
   - https://rolldown.rs/apis/plugin-api#conventions
   - https://rolldown.rs/reference/Interface.Plugin#build-hooks
   - https://vite.dev/config/build-options
+- https://nodejs.org/api/util.html#class-utiltextencoder
 
 ## Snippets
 
@@ -23,15 +24,7 @@
   "name": "@rolldown/plugin-transform-imports",
   "version": "0.1.2",
   "description": "Rolldown plugin for transforming import/exports to barrel files",
-  "keywords": [
-    "imports",
-    "modularize",
-    "plugin",
-    "rolldown",
-    "rolldown-plugin",
-    "transform-imports",
-    "tree-shaking"
-  ],
+  "keywords": ["imports", "modularize", "plugin", "rolldown", "rolldown-plugin", "transform-imports", "tree-shaking"],
   "homepage": "https://github.com/rolldown/plugins/tree/main/packages/transform-imports#readme",
   "bugs": {
     "url": "https://github.com/rolldown/plugins/issues"
