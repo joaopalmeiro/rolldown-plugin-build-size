@@ -6,6 +6,16 @@ Report the total build size.
 - [npm](https://www.npmjs.com/package/rolldown-plugin-build-size)
 - [npmx](https://npmx.dev/package/rolldown-plugin-build-size)
 
+## Usage
+
+```ts
+import buildSize from "rolldown-plugin-build-size";
+
+export default {
+  plugins: [buildSize()],
+};
+```
+
 ## Development
 
 Install [zizmor](https://docs.zizmor.sh/installation/) and [pinact](https://github.com/suzuki-shunsuke/pinact/blob/main/INSTALL.md) (if necessary).
