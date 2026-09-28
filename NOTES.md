@@ -72,3 +72,93 @@
   }
 }
 ```
+
+- https://github.com/rolldown/plugins/blob/2fe264591df0c66a4663fcac8015a77eed2f910c/packages/transform-imports/src/index.ts
+
+```ts
+export function transformImportsPlugin(options: TransformImportsOptions): Plugin {
+  const compiledModules = compileModulePatterns(options);
+  const codeFilter = buildCodeFilter(options);
+
+  return {
+    name: "rolldown-plugin-transform-imports",
+
+    transform: {
+      filter: {
+        id: /\.[jt]sx?$/,
+        ...(codeFilter && { code: { include: codeFilter } }),
+      },
+
+      handler: withMagicString(function (this, s, _id, meta) {
+        const ast = meta?.ast ?? this.parse(s.original);
+
+        new Visitor({
+          ImportDeclaration(node: ESTree.ImportDeclaration) {
+            processImportDeclaration(s, node, compiledModules);
+          },
+          ExportNamedDeclaration(node: ESTree.ExportNamedDeclaration) {
+            processExportNamedDeclaration(s, node, compiledModules);
+          },
+          ExportAllDeclaration(node: ESTree.ExportAllDeclaration) {
+            processExportAllDeclaration(s, node, compiledModules);
+          },
+          ImportExpression(node: ESTree.ImportExpression) {
+            processImportExpression(s, node, compiledModules);
+          },
+        }).visit(ast);
+      }),
+    },
+  };
+}
+
+export default transformImportsPlugin;
+```
+
+- https://github.com/rolldown/plugins/blob/2fe264591df0c66a4663fcac8015a77eed2f910c/packages/jsx-remove-attributes/src/index.ts
+
+```ts
+export default function jsxRemoveAttributesPlugin(options: JsxRemoveAttributesOptions = {}): Plugin {
+  const matcherPatterns = options.attributes && options.attributes.length > 0 ? options.attributes : DEFAULT_ATTRIBUTES;
+  const codeFilter = buildCodeFilter(matcherPatterns);
+
+  return {
+    name: "rolldown-plugin-jsx-remove-attributes",
+    // @ts-expect-error Vite-specific property
+    enforce: "pre",
+
+    transform: {
+      filter: {
+        id: /\.[jt]sx(?:$|\?)/,
+        ...(codeFilter && {
+          code: {
+            include: codeFilter,
+          },
+        }),
+      },
+
+      handler: withMagicString(function (this, s, id, meta) {
+        const [filepath] = id.split("?");
+        const lang = filepath.endsWith(".tsx")
+          ? "tsx"
+          : filepath.endsWith(".ts")
+            ? "ts"
+            : filepath.endsWith(".jsx")
+              ? "jsx"
+              : "js";
+        const program = meta?.ast ?? this.parse(s.original, { lang });
+
+        new Visitor({
+          JSXOpeningElement(node: ESTree.JSXOpeningElement) {
+            for (const attr of node.attributes) {
+              if (attr.type !== "JSXAttribute") continue;
+              if (attr.name.type !== "JSXIdentifier") continue;
+              if (!shouldRemoveProperty(attr.name.name, matcherPatterns)) continue;
+              s.remove(attr.start, attr.end);
+            }
+          },
+        }).visit(program);
+      }),
+    },
+  };
+}
+```
