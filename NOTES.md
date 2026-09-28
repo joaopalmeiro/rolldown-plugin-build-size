@@ -16,6 +16,16 @@
 - https://nodejs.org/api/util.html#class-utiltextencoder
 - https://rolldown.rs/reference/Interface.MinimalPluginContext#info
 
+## Commands
+
+```bash
+git tag -d v0.1.0
+```
+
+```bash
+git push --delete origin v0.1.0
+```
+
 ## Snippets
 
 - https://github.com/rolldown/plugins/blob/d427660aa92889a46ac751e870fd823616d9e872/packages/transform-imports/package.json
