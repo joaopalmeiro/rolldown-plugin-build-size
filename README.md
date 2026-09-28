@@ -48,8 +48,40 @@ pinact run -u --min-age 7
 
 ## Deployment
 
-- Create the `release` [GitHub Actions environment](https://github.com/joaopalmeiro/rolldown-plugin-build-size/settings/environments) (if necessary).
-- [Configure trusted publishing](https://docs.npmjs.com/trusted-publishers#configuring-trusted-publishing) (if necessary).
+### First version
+
+```bash
+npm version patch
+```
+
+```bash
+npm version minor
+```
+
+```bash
+npm version major
+```
+
+```bash
+echo "v$(npm pkg get version | tr -d \")" | pbcopy
+```
+
+- Commit and push changes.
+- Create a tag on [GitHub Desktop](https://github.blog/2020-05-12-create-and-push-tags-in-the-latest-github-desktop-2-5-release/).
+- Check [GitHub](https://github.com/joaopalmeiro/rolldown-plugin-build-size/tags).
+
+```bash
+npm login
+```
+
+```bash
+npm publish
+```
+
+- Create the `release` [GitHub Actions environment](https://github.com/joaopalmeiro/rolldown-plugin-build-size/settings/environments).
+- [Configure trusted publishing](https://docs.npmjs.com/trusted-publishers#configuring-trusted-publishing).
+
+### Remaining versions
 
 ```bash
 npm version patch
