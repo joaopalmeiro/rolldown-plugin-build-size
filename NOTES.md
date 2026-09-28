@@ -14,6 +14,7 @@
   - https://rolldown.rs/reference/Interface.Plugin#build-hooks
   - https://vite.dev/config/build-options
 - https://nodejs.org/api/util.html#class-utiltextencoder
+- https://rolldown.rs/reference/Interface.MinimalPluginContext#info
 
 ## Snippets
 
